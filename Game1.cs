@@ -9,8 +9,10 @@ namespace GameEngine
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private Texture2D _line;
-        private float _angleOfLine;
+        //private Texture2D _line;
+        //private float _angleOfLine;
+        private SpriteFont _font;
+        private int _score = 0;
 
         public Game1()
         {
@@ -22,15 +24,16 @@ namespace GameEngine
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            _line = new Texture2D(_graphics.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
-            _line.SetData(new[] { Color.White });
-            _angleOfLine = (float)(1 * Math.PI);
+            //_line = new Texture2D(_graphics.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
+            //_line.SetData(new[] { Color.White });
+            //_angleOfLine = (float)(1 * Math.PI);
 
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
+            _font = Content.Load<SpriteFont>("BasicFont");
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
@@ -50,8 +53,13 @@ namespace GameEngine
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             _spriteBatch.Begin();
-            _spriteBatch.Draw(_line, new Rectangle(_graphics.GraphicsDevice.Viewport.Width / 2, _graphics.GraphicsDevice.Viewport.Height / 2, 200, 1), null, Color.White, _angleOfLine, new Vector2(0, 0), SpriteEffects.None, 0);
+
+            _spriteBatch.DrawString(_font, "Score", new Vector2(100, 100), Color.Black);
+
             _spriteBatch.End();
+            //_spriteBatch.Begin();
+            //_spriteBatch.Draw(_line, new Rectangle(_graphics.GraphicsDevice.Viewport.Width / 2, _graphics.GraphicsDevice.Viewport.Height / 2, 200, 1), null, Color.White, _angleOfLine, new Vector2(0, 0), SpriteEffects.None, 0);
+            //_spriteBatch.End();
 
             // TODO: Add your drawing code here
 

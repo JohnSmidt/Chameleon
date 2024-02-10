@@ -34,19 +34,19 @@ namespace GameEngine.Source.UI
             this.text = text;
             this.color = color;
         }
-        public void Draw()
+        public override void Draw()
         {
             this.spriteBatch.Begin();
             this.spriteBatch.DrawString(this.font, this.text, new Vector2(this.x, this.y), this.color);
             this.spriteBatch.End();
         }
 
-        public void Initialize()
+        public override void Initialize()
         {
            
         }
 
-        public void Load(ContentManager Content, GraphicsDevice graphics)
+        public override void Load(ContentManager Content, GraphicsDevice graphics)
         {
             this.font = Content.Load<SpriteFont>("BasicFont");
             this.spriteBatch = new SpriteBatch(graphics);
@@ -64,17 +64,17 @@ namespace GameEngine.Source.UI
         {
 
         }
-        public void Draw()
+        public override void Draw()
         {
             throw new NotImplementedException();
         }
 
-        public void Initialize()
+        public override void Initialize()
         {
             throw new NotImplementedException();
         }
 
-        public void Load(ContentManager Content, GraphicsDevice graphics)
+        public override void Load(ContentManager Content, GraphicsDevice graphics)
         {
             throw new NotImplementedException();
         }
@@ -90,17 +90,17 @@ namespace GameEngine.Source.UI
         {
 
         }
-        public void Draw()
+        public override void Draw()
         {
             throw new NotImplementedException();
         }
 
-        public void Initialize()
+        public override void Initialize()
         {
             throw new NotImplementedException();
         }
 
-        public void Load(ContentManager Content, GraphicsDevice graphics)
+        public override void Load(ContentManager Content, GraphicsDevice graphics)
         {
             throw new NotImplementedException();
         }

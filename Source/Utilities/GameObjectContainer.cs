@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace GameEngine.Source.Utilities
 {
-    internal class DrawContainer
+    internal class GameObjectContainer
     {
         private LinkedList<LinkedListNode<GameObject>> _container;
-        DrawContainer()
+        public GameObjectContainer()
         {
             _container = new LinkedList<LinkedListNode<GameObject>>();
         }
@@ -21,6 +23,26 @@ namespace GameEngine.Source.Utilities
             {
                 GameObject gameObject = node.Value;
                 gameObject.Draw();
+            }
+        }
+
+        public void Initialize()
+        {
+            // Run through each object, and call its draw function
+            for (LinkedListNode<GameObject> node = _container.First(); node != null; node = node.Next)
+            {
+                GameObject gameObject = node.Value;
+                gameObject.Initialize();
+            }
+        }
+
+        public void Load(ContentManager Content, GraphicsDevice graphics)
+        {
+            // Run through each object, and call its draw function
+            for (LinkedListNode<GameObject> node = _container.First(); node != null; node = node.Next)
+            {
+                GameObject gameObject = node.Value;
+                gameObject.Load(Content, graphics);
             }
         }
 

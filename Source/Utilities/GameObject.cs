@@ -8,13 +8,22 @@ using System.Threading.Tasks;
 
 namespace GameEngine.Source.Utilities
 {
-    internal interface GameObject
+    internal class GameObject
     {
-        void Initialize();
+        public virtual void Initialize()
+        {
+            throw new NotImplementedException();
+        }
 
-        void Load(ContentManager Content, GraphicsDevice graphics);
+        public virtual void Load(ContentManager Content, GraphicsDevice graphics)
+        {
+            throw new NotImplementedException();
+        }
 
-        void Draw();
+        public virtual void Draw()
+        { 
+            throw new NotImplementedException();
+        }
 
     }
 

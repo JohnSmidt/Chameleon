@@ -1,10 +1,12 @@
-﻿using GameEngine.Source.UI;
+﻿using GameEngine.Source.Tools;
+using GameEngine.Source.UI;
 using GameEngine.Source.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 
 namespace GameEngine
 {
@@ -12,10 +14,10 @@ namespace GameEngine
     {
         private GraphicsDeviceManager _graphics;
         private GameObjectContainer container;
-        private SpriteBatch _spriteBatch;
-        private SpriteFont _font;
-        private int _score = 0;
-        private Text text;
+        private RNG rng;
+        private Text text;/// <summary>
+        /// 
+        /// </summary>
 
         public Game1()
         {
@@ -26,11 +28,20 @@ namespace GameEngine
 
         protected override void Initialize()
         {
+            rng = new RNG();
             container = new GameObjectContainer();
             // TODO: Add your initialization logic here
             text = new Text("Hello World", GraphicsDevice.Viewport.Width / 2,
-                GraphicsDevice.Viewport.Height / 2, Color.Black);
+                GraphicsDevice.Viewport.Height / 2, rng.color());
             container.Add(text);
+
+            for (int i = 0; i < 10; i++)
+            {
+                
+                    Debug.WriteLine(rng.percentage());
+               
+            }
+               
 
             base.Initialize();
         }

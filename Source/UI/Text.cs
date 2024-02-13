@@ -1,4 +1,5 @@
-﻿using GameEngine.Source.Utilities;
+﻿using GameEngine.Source.Tools;
+using GameEngine.Source.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -6,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,6 +16,7 @@ namespace GameEngine.Source.UI
     // Raw Text, can be implemented anywhere
     internal class Text : GameObject
     {
+        private RNG rng;
         private int x;
         private int y;
         private string text;
@@ -29,6 +32,7 @@ namespace GameEngine.Source.UI
             Color color
         ) 
         {
+            this.rng = new RNG ();
             this.x = x;
             this.y = y;
             this.text = text;
@@ -37,7 +41,7 @@ namespace GameEngine.Source.UI
         public override void Draw()
         {
             this.spriteBatch.Begin();
-            this.spriteBatch.DrawString(this.font, this.text, new Vector2(this.x, this.y), this.color);
+            this.spriteBatch.DrawString(this.font, this.text, new Vector2(this.x, this.y), rng.color());
             this.spriteBatch.End();
         }
 

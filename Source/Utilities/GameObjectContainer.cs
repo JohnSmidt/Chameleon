@@ -11,6 +11,7 @@ namespace GameEngine.Source.Utilities
     internal class GameObjectContainer
     {
         private LinkedList<LinkedListNode<GameObject>> _container;
+        private int _gameObjectID = 0;
         public GameObjectContainer()
         {
             _container = new LinkedList<LinkedListNode<GameObject>>();
@@ -28,7 +29,7 @@ namespace GameEngine.Source.Utilities
 
         public void Initialize()
         {
-            // Run through each object, and call its draw function
+            // Run through each object, and call its init function
             for (LinkedListNode<GameObject> node = _container.First(); node != null; node = node.Next)
             {
                 GameObject gameObject = node.Value;
@@ -38,7 +39,7 @@ namespace GameEngine.Source.Utilities
 
         public void Load(ContentManager Content, GraphicsDevice graphics)
         {
-            // Run through each object, and call its draw function
+            // Run through each object, and call its load function
             for (LinkedListNode<GameObject> node = _container.First(); node != null; node = node.Next)
             {
                 GameObject gameObject = node.Value;
@@ -48,6 +49,8 @@ namespace GameEngine.Source.Utilities
 
         public void Add(GameObject item)
         {
+            _gameObjectID++;
+            item.setID(_gameObjectID);
             LinkedListNode<GameObject> node = new LinkedListNode<GameObject>(item);
             _container.AddLast(node);
         }
@@ -56,14 +59,68 @@ namespace GameEngine.Source.Utilities
             LinkedListNode<GameObject> node = new LinkedListNode<GameObject>(item);
             _container.AddLast(node);
         }
-        // No clue how im going to implement this...
+
+        public GameObject Find(int ID)
+        {
+            LinkedListNode<GameObject> node = _container.First();
+            while (node != null)
+            {
+                LinkedListNode<GameObject> nextNode = node.Next;
+                if (node.Value.getID() == ID)
+                {
+                    return node.Value;
+                }
+                node = nextNode;
+            }
+            return null;
+        }
+
+        public GameObject Find(GameObject gameObject)
+        {
+            LinkedListNode<GameObject> node = _container.First();
+            while (node != null)
+            {
+                LinkedListNode<GameObject> nextNode = node.Next;
+                if (node.Value == gameObject)
+                {
+                    return node.Value;
+                }
+                node = nextNode;
+            }
+            return null;
+        }
+
+        // Each gameObject is assigned an ID upon entering the container. We can find and remove the gameObject based on this ID
         public void Remove(int ID) 
-        { 
-        
+        {
+            LinkedListNode<GameObject> node = _container.First();
+            while (node != null)
+            {
+                LinkedListNode<GameObject> nextNode = node.Next;
+                if (node.Value.getID() == ID)
+                {
+                    _container.Remove(node);
+                }
+                node = nextNode;
+            }
+        }
+
+        public void Remove(GameObject gameObject)
+        {
+            LinkedListNode<GameObject> node = _container.First();
+            while (node != null)
+            {
+                LinkedListNode<GameObject> nextNode = node.Next;
+                if (node.Value == gameObject)
+                {
+                    _container.Remove(node);
+                }
+                node = nextNode;
+            }
         }
         public void RemoveAll() 
         { 
-        
+            _container.Clear();
         }
     }
 }

@@ -60,7 +60,7 @@ namespace GameEngine
 
             // TODO: Add your update logic here
 
-            base.Update(gameTime);
+            //base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
@@ -71,7 +71,7 @@ namespace GameEngine
 
             // TODO: Add your drawing code here
 
-            base.Draw(gameTime);
+            //base.Draw(gameTime);
         }
     }
 }

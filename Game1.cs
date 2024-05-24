@@ -1,5 +1,5 @@
 ﻿using GameEngine.Source.Tools;
-using GameEngine.Source.UI;
+using GameEngine.Source.UI.Text;
 using GameEngine.Source.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;

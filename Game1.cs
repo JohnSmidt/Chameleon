@@ -15,7 +15,7 @@ namespace GameEngine
         private GraphicsDeviceManager _graphics;
         private GameObjectContainer container;
         private RNG rng;
-        private Text text;/// <summary>
+        private CharElementContainer text;/// <summary>
         /// 
         /// </summary>
 
@@ -31,8 +31,8 @@ namespace GameEngine
             rng = new RNG();
             container = new GameObjectContainer();
             // TODO: Add your initialization logic here
-            text = new Text("Hello World", GraphicsDevice.Viewport.Width / 2,
-                GraphicsDevice.Viewport.Height / 2, rng.color());
+            text = new CharElementContainer("Hello World", GraphicsDevice.Viewport.Width / 2,
+                GraphicsDevice.Viewport.Height / 2, 200.0f);
             container.Add(text);
 
             for (int i = 0; i < 10; i++)
@@ -57,6 +57,8 @@ namespace GameEngine
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
+            container.Update();
 
             // TODO: Add your update logic here
 

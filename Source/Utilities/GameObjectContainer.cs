@@ -27,6 +27,16 @@ namespace GameEngine.Source.Utilities
             }
         }
 
+        public void Update()
+        {
+            // Run through each object, and call its draw function
+            for (LinkedListNode<GameObject> node = _container.First(); node != null; node = node.Next)
+            {
+                GameObject gameObject = node.Value;
+                gameObject.Update();
+            }
+        }
+
         public void Initialize()
         {
             // Run through each object, and call its init function

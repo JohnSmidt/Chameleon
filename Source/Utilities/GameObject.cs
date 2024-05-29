@@ -14,17 +14,22 @@ namespace GameEngine.Source.Utilities
         private int _ID;
         public virtual void Initialize()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         public virtual void Load(ContentManager Content, GraphicsDevice graphics)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         public virtual void Draw()
         { 
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+        }
+
+        public virtual void Update()
+        {
+            //throw new NotImplementedException();
         }
 
         public virtual void setID(int ID)

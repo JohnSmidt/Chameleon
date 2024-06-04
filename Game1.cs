@@ -15,12 +15,16 @@ namespace GameEngine
         private GraphicsDeviceManager _graphics;
         private GameObjectContainer container;
         private RNG rng;
-        private CharElementContainer text;/// <summary>
+        private CharElementContainer text;
+        GameTime gameTime;
+
+        /// <summary>
         /// 
         /// </summary>
 
         public Game1()
         {
+            
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
@@ -32,7 +36,7 @@ namespace GameEngine
             container = new GameObjectContainer();
             // TODO: Add your initialization logic here
             text = new CharElementContainer("Hello World", GraphicsDevice.Viewport.Width / 2,
-                GraphicsDevice.Viewport.Height / 2, 200.0f);
+                GraphicsDevice.Viewport.Height / 2, 200.0f, container);
             container.Add(text);
 
             for (int i = 0; i < 10; i++)
@@ -58,7 +62,7 @@ namespace GameEngine
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            container.Update();
+            container.Update(gameTime);
 
             // TODO: Add your update logic here
 

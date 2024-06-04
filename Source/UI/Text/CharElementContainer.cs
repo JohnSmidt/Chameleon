@@ -21,8 +21,9 @@ namespace GameEngine.Source.UI.Text
         float _tick;
         int _index;
         GameTime gameTime;
+        GameObjectContainer _container;
 
-        public CharElementContainer(string text, float x, float y, float width, float speed = 3000f) 
+        public CharElementContainer(string text, float x, float y, float width, GameObjectContainer container, float speed = 3000f) 
         {
             _text = text;
             _x = x;
@@ -31,17 +32,22 @@ namespace GameEngine.Source.UI.Text
             _speed = _tick = speed;
             _index = 0;
             gameTime = new GameTime();
+            _container = container;
         }
 
-        public override void Update()
+        public override void Update(GameTime gameTime)
         {
             _tick -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
-            Debug.WriteLine((float)gameTime.TotalGameTime.TotalMilliseconds);
-            Debug.WriteLine(_tick);
+            //Debug.WriteLine((float)gameTime.TotalGameTime.TotalMilliseconds);
+            //Debug.WriteLine(_tick);
             if (_tick < 0)
             {
                 _tick = _speed;
+                Debug.WriteLine(_text[_index].ToString());
                 CharElement charElement = new CharElement(_text[_index].ToString(), _x, _y, 0, Color.Black);
+                _index++;
+                _container.Add(charElement);
+
             }
         }
 

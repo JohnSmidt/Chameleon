@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Content;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -20,41 +21,58 @@ namespace GameEngine.Source.Utilities
         public void Draw()
         {
             // Run through each object, and call its draw function
-            for(LinkedListNode<GameObject> node = _container.First(); node != null; node = node.Next)
+            // TODO: Remove this when engine is more worked out
+            if (_container.Count > 0)
             {
-                GameObject gameObject = node.Value;
-                gameObject.Draw();
+                for (LinkedListNode<GameObject> node = _container.First(); node != null; node = node.Next)
+                {
+                    GameObject gameObject = node.Value;
+                    gameObject.Draw();
+                }
             }
         }
 
-        public void Update()
+        public void Update(GameTime gameTime)
         {
             // Run through each object, and call its draw function
-            for (LinkedListNode<GameObject> node = _container.First(); node != null; node = node.Next)
+            // TODO: Remove this when engine is more worked out
+            if (_container.Count > 0)
             {
-                GameObject gameObject = node.Value;
-                gameObject.Update();
+                for (LinkedListNode<GameObject> node = _container.First(); node != null; node = node.Next)
+                {
+                    GameObject gameObject = node.Value;
+                    gameObject.Update(gameTime);
+                }
             }
         }
 
         public void Initialize()
         {
             // Run through each object, and call its init function
-            for (LinkedListNode<GameObject> node = _container.First(); node != null; node = node.Next)
+            // TODO: Remove this when engine is more worked out
+            if (_container.Count > 0)
             {
-                GameObject gameObject = node.Value;
-                gameObject.Initialize();
+                for (LinkedListNode<GameObject> node = _container.First(); node != null; node = node.Next)
+                {
+                    GameObject gameObject = node.Value;
+                    gameObject.Initialize();
+                }
             }
         }
 
         public void Load(ContentManager Content, GraphicsDevice graphics)
         {
             // Run through each object, and call its load function
-            for (LinkedListNode<GameObject> node = _container.First(); node != null; node = node.Next)
+            // TODO: Remove this when engine is more worked out
+            if(_container.Count > 0)
             {
-                GameObject gameObject = node.Value;
-                gameObject.Load(Content, graphics);
+                for (LinkedListNode<GameObject> node = _container.First(); node != null; node = node.Next)
+                {
+                    GameObject gameObject = node.Value;
+                    gameObject.Load(Content, graphics);
+                }
             }
+           
         }
 
         public void Add(GameObject item)

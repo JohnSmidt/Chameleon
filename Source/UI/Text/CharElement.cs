@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -40,6 +41,7 @@ namespace GameEngine.Source.UI.Text
             _spriteBatch.Begin();
             _spriteBatch.DrawString(_font, _character, new Vector2(_x, _y), _color);
             _spriteBatch.End();
+            
         }
 
         public override void Initialize()

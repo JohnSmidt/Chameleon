@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Content;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,7 @@ namespace GameEngine.Source.Utilities
             //throw new NotImplementedException();
         }
 
-        public virtual void Update()
+        public virtual void Update(GameTime gameTime)
         {
             //throw new NotImplementedException();
         }

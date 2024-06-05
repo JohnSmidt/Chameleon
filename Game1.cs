@@ -33,7 +33,7 @@ namespace GameEngine
         protected override void Initialize()
         {
             rng = new RNG();
-            container = new GameObjectContainer();
+            container = new GameObjectContainer(Content, GraphicsDevice);
             // TODO: Add your initialization logic here
             text = new CharElementContainer("Hello World", GraphicsDevice.Viewport.Width / 2,
                 GraphicsDevice.Viewport.Height / 2, 200.0f, container);
@@ -63,6 +63,7 @@ namespace GameEngine
                 Exit();
 
             container.Update(gameTime);
+           
 
             // TODO: Add your update logic here
 

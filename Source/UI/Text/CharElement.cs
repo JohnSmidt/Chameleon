@@ -34,6 +34,8 @@ namespace GameEngine.Source.UI.Text
             _y = y;
             _animationState = animationState;
             _color = color;
+
+           
         }
 
         public override void Draw()

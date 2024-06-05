@@ -13,8 +13,13 @@ namespace GameEngine.Source.Utilities
     {
         private LinkedList<LinkedListNode<GameObject>> _container;
         private int _gameObjectID = 0;
-        public GameObjectContainer()
+        ContentManager _content;
+        GraphicsDevice _graphics;
+
+        public GameObjectContainer(ContentManager Content, GraphicsDevice graphics)
         {
+            _content = Content;
+            _graphics = graphics;
             _container = new LinkedList<LinkedListNode<GameObject>>();
         }
 
@@ -81,7 +86,10 @@ namespace GameEngine.Source.Utilities
             item.setID(_gameObjectID);
             LinkedListNode<GameObject> node = new LinkedListNode<GameObject>(item);
             _container.AddLast(node);
+            // This may not be what we want to do, but for now Im focused on functionality
+            item.Load(_content, _graphics);
         }
+        //...Not sure what this is, maybe delete?
         public void Add(GameObject item, int id)
         {
             LinkedListNode<GameObject> node = new LinkedListNode<GameObject>(item);

@@ -11,7 +11,7 @@ namespace GameEngine.Source.Utilities
 {
     internal class GameObjectContainer
     {
-        private LinkedList<LinkedListNode<GameObject>> _container;
+        private LinkedList<GameObject> _container;
         private int _gameObjectID = 0;
         ContentManager _content;
         GraphicsDevice _graphics;
@@ -20,7 +20,7 @@ namespace GameEngine.Source.Utilities
         {
             _content = Content;
             _graphics = graphics;
-            _container = new LinkedList<LinkedListNode<GameObject>>();
+            _container = new LinkedList<GameObject>();
         }
 
         public void Draw()
@@ -29,7 +29,7 @@ namespace GameEngine.Source.Utilities
             // TODO: Remove this when engine is more worked out
             if (_container.Count > 0)
             {
-                for (LinkedListNode<GameObject> node = _container.First(); node != null; node = node.Next)
+                for (LinkedListNode<GameObject> node = _container.First; node != null; node = node.Next)
                 {
                     GameObject gameObject = node.Value;
                     gameObject.Draw();
@@ -43,7 +43,7 @@ namespace GameEngine.Source.Utilities
             // TODO: Remove this when engine is more worked out
             if (_container.Count > 0)
             {
-                for (LinkedListNode<GameObject> node = _container.First(); node != null; node = node.Next)
+                for (LinkedListNode<GameObject> node = _container.First; node != null; node = node.Next)
                 {
                     GameObject gameObject = node.Value;
                     gameObject.Update(gameTime);
@@ -57,7 +57,7 @@ namespace GameEngine.Source.Utilities
             // TODO: Remove this when engine is more worked out
             if (_container.Count > 0)
             {
-                for (LinkedListNode<GameObject> node = _container.First(); node != null; node = node.Next)
+                for (LinkedListNode<GameObject> node = _container.First; node != null; node = node.Next)
                 {
                     GameObject gameObject = node.Value;
                     gameObject.Initialize();
@@ -71,7 +71,7 @@ namespace GameEngine.Source.Utilities
             // TODO: Remove this when engine is more worked out
             if(_container.Count > 0)
             {
-                for (LinkedListNode<GameObject> node = _container.First(); node != null; node = node.Next)
+                for (LinkedListNode<GameObject> node = _container.First; node != null; node = node.Next)
                 {
                     GameObject gameObject = node.Value;
                     gameObject.Load(Content, graphics);
@@ -98,7 +98,7 @@ namespace GameEngine.Source.Utilities
 
         public GameObject Find(int ID)
         {
-            LinkedListNode<GameObject> node = _container.First();
+            LinkedListNode<GameObject> node = _container.First;
             while (node != null)
             {
                 LinkedListNode<GameObject> nextNode = node.Next;
@@ -113,7 +113,7 @@ namespace GameEngine.Source.Utilities
 
         public GameObject Find(GameObject gameObject)
         {
-            LinkedListNode<GameObject> node = _container.First();
+            LinkedListNode<GameObject> node = _container.First;
             while (node != null)
             {
                 LinkedListNode<GameObject> nextNode = node.Next;
@@ -129,7 +129,7 @@ namespace GameEngine.Source.Utilities
         // Each gameObject is assigned an ID upon entering the container. We can find and remove the gameObject based on this ID
         public void Remove(int ID) 
         {
-            LinkedListNode<GameObject> node = _container.First();
+            LinkedListNode<GameObject> node = _container.First;
             while (node != null)
             {
                 LinkedListNode<GameObject> nextNode = node.Next;
@@ -143,7 +143,7 @@ namespace GameEngine.Source.Utilities
 
         public void Remove(GameObject gameObject)
         {
-            LinkedListNode<GameObject> node = _container.First();
+            LinkedListNode<GameObject> node = _container.First;
             while (node != null)
             {
                 LinkedListNode<GameObject> nextNode = node.Next;

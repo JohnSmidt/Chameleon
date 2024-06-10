@@ -1,21 +1,18 @@
-﻿using GameEngine.Source.Tools;
-using GameEngine.Source.Utilities;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
+using GameEngine.Source.Tools;
+using System.Diagnostics;
+
 
 namespace GameEngine.Source.UI.Text
 {
-    // This is an individual character. It can move freely for animation purposes
-    internal class CharElement : GameObject
+    internal class WavyChar : CharElement
     {
         private string _character;
         private float _x;
@@ -27,9 +24,7 @@ namespace GameEngine.Source.UI.Text
 
         private SpriteBatch _spriteBatch;
         private SpriteFont _font;
-
-        //public delegate void animation(float x, float y);
-        public CharElement(string character, float x, float y, int animationState, Color color)
+        public WavyChar(string character, float x, float y, int animationState, Color color) : base (character, x, y, animationState, color)
         {
             _character = character;
             _x = x;
@@ -37,7 +32,12 @@ namespace GameEngine.Source.UI.Text
             _animationState = animationState;
             _color = color;
             _timer = 0;
-           
+        }
+        public override void Update(GameTime gameTime)
+        {
+            _timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+            //Debug.WriteLine(_timer);
+            _y += (float)( 1 * Math.Sin(_timer / 100));
         }
 
         public override void Draw()
@@ -45,19 +45,7 @@ namespace GameEngine.Source.UI.Text
             _spriteBatch.Begin();
             _spriteBatch.DrawString(_font, _character, new Vector2(_x, _y), _color);
             _spriteBatch.End();
-            
-        }
 
-        public override void Update(GameTime gameTime)
-        {
-            _timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
-            Debug.WriteLine(_timer);
-            _y = _timer;
-        }
-
-        public override void Initialize()
-        {
-            throw new NotImplementedException();
         }
 
         public override void Load(ContentManager Content, GraphicsDevice graphics)
@@ -65,5 +53,6 @@ namespace GameEngine.Source.UI.Text
             _font = Content.Load<SpriteFont>("BasicFont");
             _spriteBatch = new SpriteBatch(graphics);
         }
+
     }
 }

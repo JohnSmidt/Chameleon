@@ -32,22 +32,11 @@ namespace GameEngine
 
         protected override void Initialize()
         {
-            rng = new RNG();
+            
             container = new GameObjectContainer(Content, GraphicsDevice);
-            // TODO: Add your initialization logic here
-            text = new CharElementContainer("Hello World", GraphicsDevice.Viewport.Width / 2,
+            text = new CharElementContainer("Hello World, this is a test this is a test this is a test", 0,
                 GraphicsDevice.Viewport.Height / 2, 200.0f, container);
             container.Add(text);
-
-            for (int i = 0; i < 10; i++)
-            {
-                    Debug.WriteLine(rng.percentage());
-            }
-
-            int[] temp = new int[10] {1,2,3,4,5,6,7,8,9,10};
-
-            Debug.WriteLine(rng.pickFromArray(temp));
-               
 
             base.Initialize();
         }

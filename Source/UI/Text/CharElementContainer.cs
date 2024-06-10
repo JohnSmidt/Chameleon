@@ -1,4 +1,5 @@
-﻿using GameEngine.Source.Utilities;
+﻿using GameEngine.Source.Tools;
+using GameEngine.Source.Utilities;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -22,9 +23,11 @@ namespace GameEngine.Source.UI.Text
         int _index;
         GameTime gameTime;
         GameObjectContainer _container;
+        RNG rng;
 
-        public CharElementContainer(string text, float x, float y, float width, GameObjectContainer container, float speed = 3000f) 
+        public CharElementContainer(string text, float x, float y, float width, GameObjectContainer container, float speed = 100f) 
         {
+            rng = new RNG();
             _text = text;
             _x = x;
             _y = y;
@@ -44,9 +47,15 @@ namespace GameEngine.Source.UI.Text
             {
                 _tick = _speed;
                 Debug.WriteLine(_text[_index].ToString());
-                CharElement charElement = new CharElement(_text[_index].ToString(), _x, _y, 0, Color.Black);
+                WavyChar wavyChar = new WavyChar(_text[_index].ToString(), _x + (_index * 20), _y, 0, rng.pickFromArray(new Color[] { Color.Red, Color.Blue, Color.Green, Color.Yellow }));
                 _index++;
-                _container.Add(charElement);
+                _container.Add(wavyChar);
+
+                if(_index >= _text.Length)
+                {
+                    // Stay tidy
+                    _container.Remove(this);
+                }
 
             }
         }

@@ -48,12 +48,7 @@ namespace GameEngine.Source.UI.Text
             
         }
 
-        public override void Update(GameTime gameTime)
-        {
-            _timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
-            Debug.WriteLine(_timer);
-            _y = _timer;
-        }
+       
 
         public override void Initialize()
         {

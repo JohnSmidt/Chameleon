@@ -34,7 +34,7 @@ namespace GameEngine
         {
             
             container = new GameObjectContainer(Content, GraphicsDevice);
-            text = new CharElementContainer("Hello World, this is a test this is a test this is a test", 0,
+            text = new CharElementContainer("Testing <w>Wavy</> <p>Poppy</> and <s>Shaky</> effects", 0,
                 GraphicsDevice.Viewport.Height / 2, 200.0f, container);
             container.Add(text);
 

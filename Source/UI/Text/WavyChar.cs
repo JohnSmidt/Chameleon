@@ -37,12 +37,13 @@ namespace GameEngine.Source.UI.Text
         {
             _timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
             //Debug.WriteLine(_timer);
-            _y += (float)( 1 * Math.Sin(_timer / 100));
+            _y += (float)( 1.5 * Math.Sin(_timer / 100));
         }
 
         public override void Draw()
         {
             _spriteBatch.Begin();
+            //_font.MeasureString("TEST");
             _spriteBatch.DrawString(_font, _character, new Vector2(_x, _y), _color);
             _spriteBatch.End();
 

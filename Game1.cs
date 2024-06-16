@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 
@@ -17,6 +18,7 @@ namespace GameEngine
         private RNG rng;
         private CharElementContainer text;
         GameTime gameTime;
+        Dictionary<char, float> fontWidths;
 
         /// <summary>
         /// 
@@ -28,14 +30,15 @@ namespace GameEngine
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+           
         }
 
         protected override void Initialize()
         {
-            
+            fontWidths = getFontWidths(Content.Load<SpriteFont>("BasicFont"));
             container = new GameObjectContainer(Content, GraphicsDevice);
             text = new CharElementContainer("Testing <w>Wavy</> <p>Poppy</> and <s>Shaky</> effects", 0,
-                GraphicsDevice.Viewport.Height / 2, 200.0f, container);
+                GraphicsDevice.Viewport.Height / 2, GraphicsDevice.Viewport.Width, container, Content.Load<SpriteFont>("BasicFont"), fontWidths);
             container.Add(text);
 
             base.Initialize();
@@ -61,13 +64,25 @@ namespace GameEngine
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
             container.Draw();
            
 
             // TODO: Add your drawing code here
 
             //base.Draw(gameTime);
+        }
+
+        // Caching each character to allow for quick dialogue width calculations
+        public Dictionary<char, float> getFontWidths(SpriteFont font)
+        {
+            Dictionary<char, float> fontWidths = new Dictionary<char, float>();
+            foreach (char character in font.Characters)
+            {
+                float width = font.MeasureString(character.ToString()).X;
+                fontWidths.Add(character, width);
+            }
+            return fontWidths;
         }
     }
 }

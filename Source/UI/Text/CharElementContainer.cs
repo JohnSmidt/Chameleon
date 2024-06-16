@@ -1,6 +1,7 @@
 ﻿using GameEngine.Source.Tools;
 using GameEngine.Source.Utilities;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -27,9 +28,13 @@ namespace GameEngine.Source.UI.Text
         char effect;
         bool isBold;
         bool isItalic;
+        SpriteFont _font;
+        Dictionary<char, float> _fontWidths;
+        int width = 0;
+        int testWidth = 0;
 
 
-        public CharElementContainer(string text, float x, float y, float width, GameObjectContainer container, float speed = 30f) 
+        public CharElementContainer(string text, float x, float y, float width, GameObjectContainer container, SpriteFont font, Dictionary<char,float> fontWidths, float speed = 30f) 
         {
             rng = new RNG();
             _text = text;
@@ -43,15 +48,17 @@ namespace GameEngine.Source.UI.Text
             effect = 'n';
             isItalic = false;
             isBold = false;
+            _font = font;
+            _fontWidths = fontWidths;
         }
 
         // Making a PML parser 
         public override void Initialize()
         {
-            for (int i = 0; i < _text.Length; i++)
-            {
+            //for (int i = 0; i < _text.Length; i++)
+            //{
                
-            }
+            //}
         }
 
 
@@ -73,27 +80,22 @@ namespace GameEngine.Source.UI.Text
                         case 'i':
                             // Italics
                             isItalic = true;
-                            _index += 3;
                             break;
                         case 'b':
                             // Bold
                             isBold = true;
-                            _index += 3;
                             break;
                         case 'w':
                             // Wavy effect
                             effect = 'w';
-                            _index += 3;
                             break;
                         case 's':
                             // Shaky effect
                             effect = 's';
-                            _index += 3;
                             break;
                         case 'p':
                             // Poppy effect
                             effect = 'p';
-                            _index += 3;
                             break;
                         case 'n':
                             // Forced newline
@@ -112,7 +114,7 @@ namespace GameEngine.Source.UI.Text
                             effect = 'n';
                             isBold = false;
                             isItalic = false;
-                            _index += 3;
+                            
                             break;
                         default:
                             break;
@@ -125,29 +127,30 @@ namespace GameEngine.Source.UI.Text
                 switch (effect)
                 {
                     case 'w':
-                        WavyChar wavyChar = new WavyChar(_text[_index].ToString(), _x + (_index * 10), _y, 0, Color.Black);
+                        WavyChar wavyChar = new WavyChar(_text[_index].ToString(), _x + (_index * 10), _y, 0, Color.White);
                         _container.Add(wavyChar);
                         break;
                     case 's':
-                        CharElement shaky = new CharElement(_text[_index].ToString(), _x + (_index * 10), _y, 0, Color.Black);
+                        CharElement shaky = new CharElement(_text[_index].ToString(), _x + (_index * 10), _y, 0, Color.White);
                         _container.Add(shaky);
                         break;
                     case 'p':
-                        CharElement poppy = new CharElement(_text[_index].ToString(), _x + (_index * 10), _y, 0, Color.Black);
+                        CharElement poppy = new CharElement(_text[_index].ToString(), _x + (_index * 10), _y, 0, Color.White);
                         _container.Add(poppy);
                         break;
                     default:
-                        CharElement charElement = new CharElement(_text[_index].ToString(), _x + (_index * 10), _y, 0, Color.Black);
+                        CharElement charElement = new CharElement(_text[_index].ToString(), _x + (_index * 10), _y, 0, Color.White);
                         _container.Add(charElement);
                         break;
                 }
-                
+                width += (int)_fontWidths[_text[_index]];
                 _index++;
                 
 
                 if(_index >= _text.Length)
                 {
                     // Stay tidy
+                    Debug.WriteLine($"Widths are: {width}, {_font.MeasureString(_text).X}");
                     _container.Remove(this);
                 }
 

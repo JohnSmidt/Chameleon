@@ -58,6 +58,7 @@ namespace GameEngine.Source.UI.Text
         public override void Load(ContentManager Content, GraphicsDevice graphics)
         {
             _font = Content.Load<SpriteFont>("BasicFont");
+            
             _spriteBatch = new SpriteBatch(graphics);
         }
     }

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -28,6 +29,9 @@ namespace GameEngine.Source.UI.Text
         char effect;
         bool isBold;
         bool isItalic;
+        int isAux;
+        bool isEx;
+        string character;
         SpriteFont _font;
         Dictionary<char, float> _fontWidths;
         int width = 0;
@@ -48,6 +52,8 @@ namespace GameEngine.Source.UI.Text
             effect = 'n';
             isItalic = false;
             isBold = false;
+            isAux = 0;
+            isEx = false;
             _font = font;
             _fontWidths = fontWidths;
         }
@@ -68,14 +74,16 @@ namespace GameEngine.Source.UI.Text
             _tick -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
             if (_tick < 0)
             {
-
+                
                 _tick = _speed;
-                if (_text[_index] == '<')
+                if (_text[_index] == '!' && isAux == 0)
                 {
+                    isAux = 2;
                     switch (_text[_index + 1])
                     {
-                        case '<':
-                            // This is just an escaped '<'
+                        case '!':
+                            isEx = true;
+                            
                             break;
                         case 'i':
                             // Italics
@@ -108,6 +116,7 @@ namespace GameEngine.Source.UI.Text
                             break;
                         case 'f':
                             // Font
+                            
                             break;
                         case '/':
                             // Closing symbol
@@ -117,6 +126,7 @@ namespace GameEngine.Source.UI.Text
                             
                             break;
                         default:
+                            
                             break;
                     }
                     //for(int j = i; j < _text.Length; j++)
@@ -124,30 +134,67 @@ namespace GameEngine.Source.UI.Text
 
                     //}
                 }
-                switch (effect)
+                if (isAux == 1 && isEx)
                 {
-                    case 'w':
-                        WavyChar wavyChar = new WavyChar(_text[_index].ToString(), _x + (_index * 10), _y, 0, Color.White);
-                        _container.Add(wavyChar);
-                        break;
-                    case 's':
-                        CharElement shaky = new CharElement(_text[_index].ToString(), _x + (_index * 10), _y, 0, Color.White);
-                        _container.Add(shaky);
-                        break;
-                    case 'p':
-                        CharElement poppy = new CharElement(_text[_index].ToString(), _x + (_index * 10), _y, 0, Color.White);
-                        _container.Add(poppy);
-                        break;
-                    default:
-                        CharElement charElement = new CharElement(_text[_index].ToString(), _x + (_index * 10), _y, 0, Color.White);
-                        _container.Add(charElement);
-                        break;
+                    isEx = false;
+                    switch (effect)
+                    {
+                        case 'w':
+                            WavyChar wavyChar = new WavyChar("!", _x + (width), _y, 0, Color.White);
+                            _container.Add(wavyChar);
+                            break;
+                        case 's':
+                            CharElement shaky = new CharElement("!", _x + (width), _y, 0, Color.White);
+                            _container.Add(shaky);
+                            break;
+                        case 'p':
+                            CharElement poppy = new CharElement("!", _x + (width), _y, 0, Color.White);
+                            _container.Add(poppy);
+                            break;
+                        default:
+                            CharElement charElement = new CharElement("!", _x + (width), _y, 0, Color.White);
+                            _container.Add(charElement);
+                            break;
+                    }
+                    width += (int)_fontWidths[_text[_index]];
                 }
-                width += (int)_fontWidths[_text[_index]];
-                _index++;
-                
+                if (isAux == 0)
+                {
+                    
+                    switch (effect)
+                    {
+                        case 'w':
+                            WavyChar wavyChar = new WavyChar(_text[_index].ToString(), _x + (width), _y, 0, Color.White);
+                            _container.Add(wavyChar);
+                            break;
+                        case 's':
+                            CharElement shaky = new CharElement(_text[_index].ToString(), _x + (width), _y, 0, Color.White);
+                            _container.Add(shaky);
+                            break;
+                        case 'p':
+                            CharElement poppy = new CharElement(_text[_index].ToString(), _x + (width), _y, 0, Color.White);
+                            _container.Add(poppy);
+                            break;
+                        default:
+                            CharElement charElement = new CharElement(_text[_index].ToString(), _x + (width), _y, 0, Color.White);
+                            _container.Add(charElement);
+                            break;
+                    }
+                    width += (int)_fontWidths[_text[_index]];
+                    
+                }
+                else
+                {
+                    --isAux;
+                }
 
-                if(_index >= _text.Length)
+                
+                _index++;
+
+
+
+
+                if (_index >= _text.Length)
                 {
                     // Stay tidy
                     Debug.WriteLine($"Widths are: {width}, {_font.MeasureString(_text).X}");

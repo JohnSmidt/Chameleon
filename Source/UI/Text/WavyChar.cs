@@ -19,16 +19,20 @@ namespace GameEngine.Source.UI.Text
         private float _y;
         private int _animationState;
         private Color _color;
-
+        private float _amplitude;
+        private float _speed;
         private float _timer;
-
+        private float _wavyY;
         private SpriteBatch _spriteBatch;
         private SpriteFont _font;
         public WavyChar(string character, float x, float y, int animationState, Color color) : base (character, x, y, animationState, color)
         {
             _character = character;
             _x = x;
+            
             _y = y;
+            _amplitude = 3.0f;
+            _speed = 100.0f;
             _animationState = animationState;
             _color = color;
             _timer = 0;
@@ -37,14 +41,14 @@ namespace GameEngine.Source.UI.Text
         {
             _timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
             //Debug.WriteLine(_timer);
-            _y += (float)( 1.5 * Math.Sin(_timer / 100));
+            _wavyY = _y + (float)( _amplitude * Math.Sin(_timer / _speed));
         }
 
         public override void Draw()
         {
             _spriteBatch.Begin();
             //_font.MeasureString("TEST");
-            _spriteBatch.DrawString(_font, _character, new Vector2(_x, _y), _color);
+            _spriteBatch.DrawString(_font, _character, new Vector2(_x, _wavyY), _color);
             _spriteBatch.End();
 
         }

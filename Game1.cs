@@ -37,7 +37,7 @@ namespace GameEngine
         {
             fontWidths = getFontWidths(Content.Load<SpriteFont>("BasicFont"));
             container = new GameObjectContainer(Content, GraphicsDevice);
-            text = new CharElementContainer("Testing <w>Wavy</> <p>Poppy</> and <s>Shaky</> effects", 0,
+            text = new CharElementContainer("Testing !wWavy!! Poppy and Shaky effects!!", 0,
                 GraphicsDevice.Viewport.Height / 2, GraphicsDevice.Viewport.Width, container, Content.Load<SpriteFont>("BasicFont"), fontWidths);
             container.Add(text);
 

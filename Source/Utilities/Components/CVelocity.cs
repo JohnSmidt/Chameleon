@@ -18,7 +18,7 @@ namespace GameEngine.Source.Utilities.Components
             set => _velocity = value;
         }
 
-        CVelocity(int id, Entity parent, Vector2 velocity, string name = "") : base(id, parent, name)
+        public CVelocity(int id, Entity parent, Vector2 velocity, string name = "") : base(id, parent, name)
         {
             this._velocity = velocity;
         }

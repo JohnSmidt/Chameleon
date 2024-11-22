@@ -13,15 +13,12 @@ namespace GameEngine.Source.Utilities.Components
         public Vector2 position 
         {
             get => _position;
-            set
-            {
-                position = value;
-            }
+            set => _position = value;
         }
 
-        CPosition(int id, Entity parent, Vector2 position, string name = ""):base(id, parent, name)
+        public CPosition(int id, Entity parent, Vector2 position, string name = ""):base(id, parent, name)
         {
-            this._position = position;
+            _position = position;
         }
 
     }

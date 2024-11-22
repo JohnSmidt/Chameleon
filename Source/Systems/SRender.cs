@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameEngine.Source.Utilities.Systems.Movement
+namespace GameEngine.Source.Systems
 {
-    internal class SWander
+    internal class SRender
     {
     }
 }

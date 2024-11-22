@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameEngine.Source.Utilities.Systems
+namespace GameEngine.Source.Systems
 {
-    internal class SRender
+    internal class SMovement
     {
     }
 }

@@ -43,16 +43,34 @@ namespace GameEngine.Source.Utilities
 
             return component;
         }
-        public void RemoveComponent(Type type, Component component)
+
+        public T AddComponent<T>(T component) where T : Component =>
+            (T)AddComponent(typeof(T), component);
+
+        public Component RemoveComponent(Type type)
         {
-            _componentDictionary.Remove(type);
-            _componentList.Remove(component);
+            if (_componentDictionary.TryGetValue(type, out Component component))
+            {
+                component.Destroy();
+                _componentDictionary.Remove(type);
+                _componentList.Remove(component);
+                return component;
+            }
+            return null;
         }
+
+        public Component RemoveComponent<T>() where T : Component =>
+           RemoveComponent(typeof(T));
 
         public Component FindComponent(Type type)
         {
            return _componentDictionary[type];
         }
+
+        public T GetComponent<T>() where T : Component => (T)_componentDictionary[typeof(T)];
+
+        public Component GetComponent(Type type) =>
+            _componentDictionary[type];
 
         public bool HasComponent(Type type)
         {

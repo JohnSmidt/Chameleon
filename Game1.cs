@@ -1,4 +1,5 @@
-﻿using GameEngine.Source.Tools;
+﻿using GameEngine.Source.Systems;
+using GameEngine.Source.Tools;
 using GameEngine.Source.UI.Text;
 using GameEngine.Source.Utilities;
 using Microsoft.Xna.Framework;
@@ -19,6 +20,7 @@ namespace GameEngine
         private CharElementContainer text;
         GameTime gameTime;
         Dictionary<char, float> fontWidths;
+        SMaster master;
 
         /// <summary>
         /// 
@@ -37,6 +39,8 @@ namespace GameEngine
 
         protected override void Initialize()
         {
+            master = new SMaster();
+            master.Initiate();
             fontWidths = getFontWidths(Content.Load<SpriteFont>("BasicFont"));
             container = new GameObjectContainer(Content, GraphicsDevice);
             text = new CharElementContainer("Testing !wWavy!!!/ !bBouncy!/ !pPoppy!/ and !sShaky!/ effects!!", 0,
@@ -57,7 +61,7 @@ namespace GameEngine
                 Exit();
 
             container.Update(gameTime);
-           
+            master.Update(gameTime);
 
             // TODO: Add your update logic here
 
@@ -68,7 +72,7 @@ namespace GameEngine
         {
             GraphicsDevice.Clear(Color.Black);
             container.Draw();
-           
+            master.Draw();
 
             // TODO: Add your drawing code here
 

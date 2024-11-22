@@ -90,8 +90,8 @@ namespace GameEngine.Source.UI.Text
                             isItalic = true;
                             break;
                         case 'b':
-                            // Bold
-                            isBold = true;
+                            // Bouncy effect
+                            effect = 'b';
                             break;
                         case 'w':
                             // Wavy effect
@@ -151,6 +151,10 @@ namespace GameEngine.Source.UI.Text
                             CharElement poppy = new CharElement("!", _x + (width), _y, 0, Color.White);
                             _container.Add(poppy);
                             break;
+                        case 'b':
+                            CharElement bouncy = new BouncyChar("!", _x + (width), _y, 0, Color.White);
+                            _container.Add(bouncy);
+                            break;
                         default:
                             CharElement charElement = new CharElement("!", _x + (width), _y, 0, Color.White);
                             _container.Add(charElement);
@@ -168,12 +172,16 @@ namespace GameEngine.Source.UI.Text
                             _container.Add(wavyChar);
                             break;
                         case 's':
-                            CharElement shaky = new CharElement(_text[_index].ToString(), _x + (width), _y, 0, Color.White);
+                            CharElement shaky = new ShakyChar(_text[_index].ToString(), _x + (width), _y, 0, Color.White);
                             _container.Add(shaky);
                             break;
                         case 'p':
                             CharElement poppy = new CharElement(_text[_index].ToString(), _x + (width), _y, 0, Color.White);
                             _container.Add(poppy);
+                            break;
+                        case 'b':
+                            CharElement bouncy = new BouncyChar(_text[_index].ToString(), _x + (width), _y, 0, Color.White);
+                            _container.Add(bouncy);
                             break;
                         default:
                             CharElement charElement = new CharElement(_text[_index].ToString(), _x + (width), _y, 0, Color.White);

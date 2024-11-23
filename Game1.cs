@@ -39,7 +39,7 @@ namespace GameEngine
 
         protected override void Initialize()
         {
-            master = new SMaster();
+            master = new SMaster(Content, gameTime, GraphicsDevice);
             master.Initiate();
             fontWidths = getFontWidths(Content.Load<SpriteFont>("BasicFont"));
             container = new GameObjectContainer(Content, GraphicsDevice);
@@ -71,7 +71,7 @@ namespace GameEngine
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-            container.Draw();
+            //container.Draw();
             master.Draw();
 
             // TODO: Add your drawing code here

@@ -205,7 +205,6 @@ namespace GameEngine.Source.UI.Text
                 if (_index >= _text.Length)
                 {
                     // Stay tidy
-                    Debug.WriteLine($"Widths are: {width}, {_font.MeasureString(_text).X}");
                     _container.Remove(this);
                 }
 

@@ -10,16 +10,16 @@ namespace GameEngine.Source.Utilities.Components
     internal class CVelocity : Component
     {
 
-        private Vector2 _velocity;
-
-        public Vector2 velocity
+        private float _velocity;
+        public float velocity
         {
             get => _velocity;
             set => _velocity = value;
         }
 
-        public CVelocity(int id, Entity parent, Vector2 velocity, string name = "") : base(id, parent, name)
+        public CVelocity(int id, Entity parent, float velocity, string name = "") : base(id, parent, name)
         {
+
             this._velocity = velocity;
         }
     }

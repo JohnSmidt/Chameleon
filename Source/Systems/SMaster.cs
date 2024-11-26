@@ -22,6 +22,7 @@ namespace GameEngine.Source.Systems
         private SRender _render;
         private List<Entity> _entities;
         private GraphicsDevice _graphics;
+        private SMovement _movement;
 
         public SMaster(ContentManager Content, GameTime gametime, GraphicsDevice graphics) 
         {
@@ -40,16 +41,21 @@ namespace GameEngine.Source.Systems
 
 
             entity = new Entity(0, "test");
-            CPosition position = new CPosition(1, entity, new Vector2(50,50));
-            CVelocity velocity = new CVelocity(2, entity, new Vector2(2, 0));
+            CPosition position = new CPosition(1, entity, new Vector2(500,500));
+            CVelocity velocity = new CVelocity(2, entity, 50);
+            CVector vector = new CVector(2, entity, new Vector2(0, 0));
             C2DStaticSprite sprite = new C2DStaticSprite(3, entity, texture);
+            CMovementState movementState = new CMovementState(4, entity);
             entity.AddComponent(typeof(CPosition), position);
             entity.AddComponent(typeof(CVelocity), velocity);
+            entity.AddComponent(typeof(CVector), vector);
             entity.AddComponent(typeof(C2DStaticSprite), sprite);
+            entity.AddComponent(typeof(CMovementState), movementState);
 
             _entities.Add(entity);
 
             _render = new SRender(_graphics);
+            _movement = new SMovement();
         }
 
         public void RegisterSystem(ISystem system)
@@ -59,7 +65,8 @@ namespace GameEngine.Source.Systems
 
         public void Update(GameTime gameTime)
         {
-
+            // Movement
+            _movement.Move(gameTime, _entities);
         }
 
         public void Draw()

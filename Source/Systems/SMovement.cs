@@ -17,13 +17,15 @@ namespace GameEngine.Source.Systems
     {
         Random rng = new Random();
         float wanderingTick = 0;
+        bool isMoving = false;
+        float waitingTime = 0; // Might replace this with stamina
         float deltaTime = 0;
 
         public void Move(GameTime gameTime, List<Entity> entities)
         {
             foreach (Entity entity in entities)
             {
-                deltaTime = (float)gameTime.ElapsedGameTime.Ticks / TimeSpan.TicksPerSecond;
+                deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
                 CPosition positionComponent = entity.GetComponent<CPosition>();
                 CVector vectorComponent = entity.GetComponent<CVector>();
                 CMovementState movementState = entity.GetComponent<CMovementState>();
@@ -49,12 +51,37 @@ namespace GameEngine.Source.Systems
 
         public void Wander(CVector vectorComponent)
         {
-            if (wanderingTick <= 0)
+
+            // If Moving, decrease the moving timer and move
+            // If not moving, devrease the wait timer
+            float randX = 0;
+            float randY = 0;
+            float normalizer = 0;
+
+            if (isMoving && wanderingTick > 0)
+            {
+                wanderingTick -= deltaTime;
+            }
+
+            if(isMoving && wanderingTick <= 0)
+            {
+                waitingTime = 3;
+                isMoving = false;
+                vectorComponent.vector = new Vector2(0, 0);
+            }
+
+            if(!isMoving && waitingTime > 0)
+            {
+                waitingTime -= deltaTime;
+            }
+
+            if (!isMoving && waitingTime <= 0)
             {
                 wanderingTick = 3;
-                float randX = (float)((rng.NextDouble() * 2.0) - 1.0);
-                float randY = (float)((rng.NextDouble() * 2.0) - 1.0);
-                float normalizer = (float)Math.Sqrt(randX * randX + randY * randY);
+                isMoving = true;
+                randX = (float)((rng.NextDouble() * 2.0) - 1.0);
+                randY = (float)((rng.NextDouble() * 2.0) - 1.0);
+                normalizer = (float)Math.Sqrt(randX * randX + randY * randY);
                 if (normalizer == 0)
                 {
                     vectorComponent.vector = new Vector2(0, 0);
@@ -64,11 +91,6 @@ namespace GameEngine.Source.Systems
                     vectorComponent.vector = new Vector2((randX / normalizer), (randY / normalizer));
                 }
             }
-            else
-            {
-                wanderingTick -= deltaTime;
-            }
-           
         }
         public void Update(GameTime gametime)
         {

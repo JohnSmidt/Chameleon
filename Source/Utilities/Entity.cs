@@ -67,7 +67,7 @@ namespace GameEngine.Source.Utilities
            return _componentDictionary[type];
         }
 
-        public T GetComponent<T>() where T : Component => (T)_componentDictionary[typeof(T)];
+        public T? GetComponent<T>() where T : Component => (T)_componentDictionary[typeof(T)];
 
         public Component GetComponent(Type type) =>
             _componentDictionary[type];
